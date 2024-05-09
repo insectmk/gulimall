@@ -7,6 +7,8 @@ import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,11 +29,28 @@ import cn.insectmk.common.utils.R;
  * @email 3067836615@qq.com
  * @date 2024-05-09 10:34:15
  */
+@RefreshScope
 @RestController
 @RequestMapping("coupon/coupon")
 public class CouponController {
     @Autowired
     private CouponService couponService;
+
+    @Value("${coupon.user.name}")
+    private String userName;
+    @Value("${coupon.user.age}")
+    private Integer userAge;
+
+    /**
+     * 配置中心测试
+     * @return
+     */
+    @RequestMapping("/test")
+    public R test() {
+        return R.ok()
+                .put("userName", userName)
+                .put("userAge", userAge);
+    }
 
     /**
      * 会员远程调用测试（获取会员优惠券）
