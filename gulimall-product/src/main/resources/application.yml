@@ -5,6 +5,13 @@ spring:
     password: root
     url: jdbc:mysql://192.168.114.141:3306/gulimall_pms
     driver-class-name: com.mysql.cj.jdbc.Driver
+  cloud:
+    # 注册中心配置
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  application:
+    name: gulimall-product
 
 # MyBatis-Plus配置
 mybatis-plus:
@@ -16,4 +23,4 @@ mybatis-plus:
       id-type: auto
 
 server:
-  port: 10000
+  port: 10001
