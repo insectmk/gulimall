@@ -16,11 +16,11 @@
 
 3. Spring-Cloud（`Hoxton.SR7`）：
 
-4. [Spring-Cloud-Alibaba](https://github.com/alibaba/spring-cloud-alibaba/tree/greenwich)（`2.1.0.RELEASE`）：
+4. [Spring-Cloud-Alibaba](https://github.com/alibaba/spring-cloud-alibaba/blob/greenwich/README-zh.md)（`2.1.0.RELEASE`）：
 
    使用组件：
 
-   1. [Nacos](https://github.com/alibaba/Nacos)（`1.1.3`）：（[注册中心](https://github.com/alibaba/spring-cloud-alibaba/blob/greenwich/spring-cloud-alibaba-examples/nacos-example/nacos-discovery-example/readme-zh.md)与配置中心）一个更易于构建云原生应用的动态服务发现、配置管理和服务管理平台。
+   1. [Nacos](https://github.com/alibaba/Nacos)（`1.1.3`）：（[注册中心](https://github.com/alibaba/spring-cloud-alibaba/blob/greenwich/spring-cloud-alibaba-examples/nacos-example/nacos-discovery-example/readme-zh.md)与[配置中心](https://github.com/alibaba/spring-cloud-alibaba/blob/greenwich/spring-cloud-alibaba-examples/nacos-example/nacos-config-example/readme-zh.md)）一个更易于构建云原生应用的动态服务发现、配置管理和服务管理平台。
 
       [Nacos使用案例](https://github.com/alibaba/spring-cloud-alibaba/blob/2023.x/spring-cloud-alibaba-examples/nacos-example/readme-zh.md)
 
@@ -74,3 +74,4 @@
    </dependency>
    ```
 5. Spring-Cloud-Alibaba版本问题，需要处理好。
+
