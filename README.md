@@ -4,9 +4,37 @@
 
 ## 软件版本
 
-1. JDK：1.8
-2. MYSQL：5.7
-3. Redis：7.2
+1. JDK（`1.8`）：
+2. MYSQL（`5.7`）：
+3. Redis（`7.2`）：
+
+## 项目技术
+
+1. Maven（`3.6.3`）：
+
+2. Spring-Boot（`2.3.3.RELEASE`）：
+
+3. Spring-Cloud（`Hoxton.SR7`）：
+
+4. [Spring-Cloud-Alibaba](https://github.com/alibaba/spring-cloud-alibaba/tree/greenwich)（`2.1.0.RELEASE`）：
+
+   使用组件：
+
+   1. [Nacos](https://github.com/alibaba/Nacos)（`2.2.0.RELEASE`）：（[注册中心](https://github.com/alibaba/spring-cloud-alibaba/blob/greenwich/spring-cloud-alibaba-examples/nacos-example/nacos-discovery-example/readme-zh.md)与配置中心）一个更易于构建云原生应用的动态服务发现、配置管理和服务管理平台。
+
+      [Nacos使用案例](https://github.com/alibaba/spring-cloud-alibaba/blob/2023.x/spring-cloud-alibaba-examples/nacos-example/readme-zh.md)
+
+   2. [Sentinel](https://github.com/alibaba/Sentinel)：把流量作为切入点，从流量控制、熔断降级、系统负载保护等多个维度保护服务的稳定性。
+
+   3. [Seata](https://github.com/seata/seata)：阿里巴巴开源产品，一个易于使用的高性能微服务分布式事务解决方案。
+
+5. Spring-Cloud-Ribbon：负载均衡
+
+6. Spring-Cloud-Feign：声明式HTTP客户端（调用远程服务）
+
+7. Spring-Cloud-Geteway：网关
+
+8. Spring-Cloud-Sleuth：调用链监控
 
 ## 快速构建管理系统
 
