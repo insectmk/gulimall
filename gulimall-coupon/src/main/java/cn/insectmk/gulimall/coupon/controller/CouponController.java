@@ -1,6 +1,8 @@
 package cn.insectmk.gulimall.coupon.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -30,6 +32,20 @@ import cn.insectmk.common.utils.R;
 public class CouponController {
     @Autowired
     private CouponService couponService;
+
+    /**
+     * 会员远程调用测试（获取会员优惠券）
+     * @return
+     */
+    @RequestMapping("/member/list")
+    public R memberList() {
+        List<CouponEntity> couponEntities = new ArrayList<>(2);
+        couponEntities.addAll(couponService.list());
+
+        return R.ok()
+                .put("coupons", couponEntities)
+                .put("message", "获取成功");
+    }
 
     /**
      * 列表
