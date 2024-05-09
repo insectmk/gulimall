@@ -74,4 +74,5 @@
    </dependency>
    ```
 5. Spring-Cloud-Alibaba版本问题，需要处理好。
+6. EasyConnect软件会占用10000端口。
 
