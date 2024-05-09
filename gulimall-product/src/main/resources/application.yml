@@ -1,6 +1,16 @@
 spring:
+  # 数据源
   datasource:
     username: root
     password: root
     url: jdbc:mysql://192.168.114.141:3306/gulimall_pms
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+# MyBatis-Plus配置
+mybatis-plus:
+  # mapper.xml扫描
+  mapper-locations: classpath:/mapper/**/*.xml
+  global-config:
+    db-config:
+      # 主键自增
+      id-type: auto
