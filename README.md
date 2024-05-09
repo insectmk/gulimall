@@ -20,7 +20,7 @@
 
    使用组件：
 
-   1. [Nacos](https://github.com/alibaba/Nacos)（`2.2.0.RELEASE`）：（[注册中心](https://github.com/alibaba/spring-cloud-alibaba/blob/greenwich/spring-cloud-alibaba-examples/nacos-example/nacos-discovery-example/readme-zh.md)与配置中心）一个更易于构建云原生应用的动态服务发现、配置管理和服务管理平台。
+   1. [Nacos](https://github.com/alibaba/Nacos)（`1.1.3`）：（[注册中心](https://github.com/alibaba/spring-cloud-alibaba/blob/greenwich/spring-cloud-alibaba-examples/nacos-example/nacos-discovery-example/readme-zh.md)与配置中心）一个更易于构建云原生应用的动态服务发现、配置管理和服务管理平台。
 
       [Nacos使用案例](https://github.com/alibaba/spring-cloud-alibaba/blob/2023.x/spring-cloud-alibaba-examples/nacos-example/readme-zh.md)
 
@@ -73,4 +73,4 @@
        <version>2.6</version>
    </dependency>
    ```
-5. 
+5. Spring-Cloud-Alibaba版本问题，需要处理好。
