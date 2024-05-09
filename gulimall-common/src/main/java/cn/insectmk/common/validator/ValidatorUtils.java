@@ -8,8 +8,9 @@
 
 package cn.insectmk.common.validator;
 
-import io.renren.common.exception.RRException;
-import io.renren.common.utils.Constant;
+
+import cn.insectmk.common.exception.RRException;
+import cn.insectmk.common.utils.Constant;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;

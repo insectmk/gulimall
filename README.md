@@ -22,3 +22,40 @@
 2. 导入人人开源管理后台时，提示父类模块不正确。
    在子模块的`<parent>`标签下增加`<relativePath/>`即可。
 3. [谷粒商城 p16 node-sass报错最简单解决方法](https://gitee.com/renrenio/renren-fast-vue/issues/I900BR)
+4. p17，common模块导入人人开源类的时候，需要自己解决类问题，可以参考以下maven坐标：
+   ```xml
+   <!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
+   <dependency>
+       <groupId>javax.validation</groupId>
+       <artifactId>validation-api</artifactId>
+       <version>2.0.1.Final</version>
+   </dependency>
+   
+   <!-- https://mvnrepository.com/artifact/org.springframework/spring-web -->
+   <dependency>
+       <groupId>org.springframework</groupId>
+       <artifactId>spring-web</artifactId>
+       <version>5.2.13.RELEASE</version>
+   </dependency>
+   
+   <dependency>
+       <groupId>commons-io</groupId>
+       <artifactId>commons-io</artifactId>
+       <version>2.5</version>
+   </dependency>
+   
+   <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+   <dependency>
+       <groupId>javax.servlet</groupId>
+       <artifactId>javax.servlet-api</artifactId>
+       <version>4.0.1</version>
+       <scope>provided</scope>
+   </dependency>
+   
+   <dependency><!-- 人人开源的包 -->
+       <groupId>commons-lang</groupId>
+       <artifactId>commons-lang</artifactId>
+       <version>2.6</version>
+   </dependency>
+   ```
+5. 

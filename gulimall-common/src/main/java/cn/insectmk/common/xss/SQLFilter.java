@@ -8,7 +8,7 @@
 
 package cn.insectmk.common.xss;
 
-import io.renren.common.exception.RRException;
+import cn.insectmk.common.exception.RRException;
 import org.apache.commons.lang.StringUtils;
 
 /**
