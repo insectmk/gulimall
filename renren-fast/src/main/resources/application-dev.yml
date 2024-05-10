@@ -32,7 +32,13 @@ spring:
                 wall:
                     config:
                         multi-statement-allow: true
-
+    cloud:
+        # 注册中心配置
+        nacos:
+            discovery:
+                server-addr: 127.0.0.1:8848
+    application:
+        name: renren-fast
 
 ##多数据源的配置
 #dynamic:
