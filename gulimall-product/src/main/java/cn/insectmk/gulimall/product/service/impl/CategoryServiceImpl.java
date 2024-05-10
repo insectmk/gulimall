@@ -1,7 +1,13 @@
 package cn.insectmk.gulimall.product.service.impl;
 
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -26,4 +32,27 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         return new PageUtils(page);
     }
 
+    @Override
+    public List<CategoryEntity> listWithTree() {
+        // 查出所有的集合
+        List<CategoryEntity> allCategories = baseMapper.selectList(null);
+        // 过滤出所有的根分类
+        List<CategoryEntity> rootCategories = allCategories.stream()
+                .filter(categoryEntity -> categoryEntity.getParentCid() == 0)
+                .peek((category) -> category.setChildren(getChildren(category, allCategories)))
+                .sorted(Comparator.comparingInt(category -> ((category.getSort() == null) ? 0 : category.getSort())))
+                .collect(Collectors.toList());
+
+        return rootCategories;
+    }
+
+    private List<CategoryEntity> getChildren(CategoryEntity root, List<CategoryEntity> allCategories) {
+        // 装载root分类的子分类
+        List<CategoryEntity> children = allCategories.stream()
+                .filter(category -> root.getCatId().equals(category.getParentCid()))
+                .peek(category -> category.setChildren(getChildren(category, allCategories)))
+                .sorted(Comparator.comparingInt(category -> ((category.getSort() == null) ? 0 : category.getSort())))
+                .collect(Collectors.toList());
+        return children;
+    }
 }
