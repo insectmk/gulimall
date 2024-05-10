@@ -70,7 +70,7 @@ public class CategoryController {
      */
     @PostMapping("/delete")
     public R delete(@RequestBody Long[] catIds){
-		categoryService.removeMenuByIds(Arrays.asList(catIds));
+		categoryService.removeByIds(Arrays.asList(catIds));
         return R.ok();
     }
 
