@@ -46,6 +46,18 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         return rootCategories;
     }
 
+    @Override
+    public boolean removeMenuByIds(List<Long> ids) {
+        // TODO: 删除分类前进行判断
+        return this.removeByIds(ids);
+    }
+
+    /**
+     * 获取分类的子分类
+     * @param root
+     * @param allCategories
+     * @return
+     */
     private List<CategoryEntity> getChildren(CategoryEntity root, List<CategoryEntity> allCategories) {
         // 装载root分类的子分类
         List<CategoryEntity> children = allCategories.stream()
