@@ -47,9 +47,12 @@
 ## 遇到的问题
 
 1. 使用VirtualBox遇到问题不知道怎么解决，改为使用VM ware。
+
 2. 导入人人开源管理后台时，提示父类模块不正确。
    在子模块的`<parent>`标签下增加`<relativePath/>`即可。
+
 3. [谷粒商城 p16 node-sass报错最简单解决方法](https://gitee.com/renrenio/renren-fast-vue/issues/I900BR)
+
 4. p17，common模块导入人人开源类的时候，需要自己解决类问题（**下一P老师会解决**），可以参考以下maven坐标：
    ```xml
    <!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
@@ -73,6 +76,26 @@
        <version>2.6</version>
    </dependency>
    ```
+
 5. Spring-Cloud-Alibaba版本问题，需要处理好。
+
 6. EasyConnect软件会占用10000端口。
 
+7. p46，将人人开源后端注册到nacos出现问题。
+
+   1. 将人人开源`pom.xml`的springboot版本切换为`2.3.3.RELEASE`
+
+   2. 修改`io.renren.config.CorsConfig.java`：
+
+      ```java
+      @Override
+      public void addCorsMappings(CorsRegistry registry) {
+          registry.addMapping("/**")
+                  .allowedOrigins("*")
+                  .allowCredentials(true)
+                  .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                  .maxAge(3600);
+      }
+      ```
+
+      
