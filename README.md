@@ -83,19 +83,8 @@
 
 7. p46，将人人开源后端注册到nacos出现问题。
 
-   1. 将人人开源`pom.xml`的springboot版本切换为`2.3.3.RELEASE`
+   1. 将人人开源`pom.xml`的springboot版本切换为`2.3.3.RELEASE`。
 
-   2. 修改`io.renren.config.CorsConfig.java`：
-
-      ```java
-      @Override
-      public void addCorsMappings(CorsRegistry registry) {
-          registry.addMapping("/**")
-                  .allowedOrigins("*")
-                  .allowCredentials(true)
-                  .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                  .maxAge(3600);
-      }
-      ```
+   2. 按照p47的说明，修改`io.renren.config.CorsConfig.java`，将跨域配置注释掉就行了。
 
       
