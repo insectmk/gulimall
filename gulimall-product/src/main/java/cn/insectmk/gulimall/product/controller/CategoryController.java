@@ -26,15 +26,6 @@ public class CategoryController {
     private CategoryService categoryService;
 
     /**
-     * 修改
-     */
-    @RequestMapping("/update/sort")
-    public R updateSort(@RequestBody CategoryEntity[] categories){
-        categoryService.updateBatchById(Arrays.asList(categories));
-        return R.ok();
-    }
-
-    /**
      * 查出所有的分类及子分类并组织在一起
      */
     @RequestMapping("/list/tree")
@@ -51,7 +42,7 @@ public class CategoryController {
     public R info(@PathVariable("catId") Long catId){
 		CategoryEntity category = categoryService.getById(catId);
 
-        return R.ok().put("data", category);
+        return R.ok().put("category", category);
     }
 
     /**
