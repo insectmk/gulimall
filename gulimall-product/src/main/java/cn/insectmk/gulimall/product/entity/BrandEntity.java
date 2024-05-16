@@ -3,6 +3,7 @@ package cn.insectmk.gulimall.product.entity;
 import cn.insectmk.common.valid.AddGroup;
 import cn.insectmk.common.valid.ListValue;
 import cn.insectmk.common.valid.UpdateGroup;
+import cn.insectmk.common.valid.UpdateStatusGroup;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -28,7 +29,7 @@ public class BrandEntity implements Serializable {
 	/**
 	 * 品牌id
 	 */
-	@NotNull(message = "修改必须指定品牌ID", groups = {UpdateGroup.class})
+	@NotNull(message = "修改必须指定品牌ID", groups = {UpdateGroup.class, UpdateStatusGroup.class})
 	@Null(message = "新增不能指定ID", groups = {AddGroup.class})
 	@TableId
 	private Long brandId;
@@ -50,7 +51,8 @@ public class BrandEntity implements Serializable {
 	/**
 	 * 显示状态[0-不显示；1-显示]
 	 */
-	@ListValue(vals = {0, 1}, groups = {AddGroup.class})
+	@ListValue(vals = {0, 1}, groups = {AddGroup.class, UpdateStatusGroup.class})
+	@NotNull(groups = {UpdateStatusGroup.class})
 	private Integer showStatus;
 	/**
 	 * 检索首字母
