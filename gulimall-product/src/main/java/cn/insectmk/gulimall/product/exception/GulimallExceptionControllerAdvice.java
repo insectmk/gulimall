@@ -1,5 +1,6 @@
 package cn.insectmk.gulimall.product.exception;
 
+import cn.insectmk.common.exception.BizCodeEnum;
 import cn.insectmk.common.utils.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
@@ -19,6 +20,11 @@ import java.util.Map;
 @RestControllerAdvice
 @Slf4j
 public class GulimallExceptionControllerAdvice {
+    /**
+     * 数据校验错误处理
+     * @param e
+     * @return
+     */
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public R handleValidException(MethodArgumentNotValidException e) {
         log.error("数据校验出现问题{}，异常类型{}", e.getMessage(), e.getClass());
@@ -29,6 +35,17 @@ public class GulimallExceptionControllerAdvice {
             errors.put(fieldError.getField(), fieldError.getDefaultMessage());
         });
 
-        return R.error(400, "提交的数据不合法").put("data", errors);
+        return R.error(BizCodeEnum.VALID_EXCEPTION.getCode(), BizCodeEnum.VALID_EXCEPTION.getMsg()).put("data", errors);
+    }
+
+    /**
+     * 处理全局未知异常
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(value = Throwable.class)
+    public R handleException(Throwable e) {
+        log.error("系统出现未知问题{}，异常类型{}", e.getMessage(), e.getClass());
+        return R.error(BizCodeEnum.UNKNOWN_EXCEPTION.getCode(), BizCodeEnum.UNKNOWN_EXCEPTION.getMsg());
     }
 }
