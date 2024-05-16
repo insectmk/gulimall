@@ -10,4 +10,4 @@ spring:
     active: dev
 
 server:
-  port: 10001
+  port: 30000
