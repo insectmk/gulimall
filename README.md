@@ -24,6 +24,8 @@
 
       [Nacos使用案例](https://github.com/alibaba/spring-cloud-alibaba/blob/2023.x/spring-cloud-alibaba-examples/nacos-example/readme-zh.md)
 
+   2. [Alibaba Cloud OSS](https://github.com/alibaba/aliyun-spring-boot/blob/master/aliyun-spring-boot-samples/aliyun-oss-spring-boot-sample/README-zh.md)：对象存储服务
+
    2. [Sentinel](https://github.com/alibaba/Sentinel)：把流量作为切入点，从流量控制、熔断降级、系统负载保护等多个维度保护服务的稳定性。
 
    3. [Seata](https://github.com/seata/seata)：阿里巴巴开源产品，一个易于使用的高性能微服务分布式事务解决方案。
@@ -84,7 +86,28 @@
 7. p46，将人人开源后端注册到nacos出现问题。
 
    1. 将人人开源`pom.xml`的springboot版本切换为`2.3.3.RELEASE`。
-
    2. 按照p47的说明，修改`io.renren.config.CorsConfig.java`，将跨域配置注释掉就行了。
 
-      
+8. p62，maven坐标`aliyun-oss-spring-boot-starter`引入失败问题，参考[阿里云OSS对象存储依赖引入失败 怎么解决](https://github.com/alibaba/aliyun-spring-boot/issues/40#top)，个人实测只需要加上版本号就行了。
+
+   ```maven
+   <dependency>
+       <groupId>com.alibaba.cloud</groupId>
+       <artifactId>aliyun-oss-spring-boot-starter</artifactId>
+       <version>1.0.0</version>
+   </dependency>
+   ```
+
+9. p66，没有`org.hibernate.validator.constraints.URL`需要在`gulimall-common`中导包，坐标如下：
+
+   ```xml
+   <!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
+   <dependency>
+       <groupId>org.hibernate.validator</groupId>
+       <artifactId>hibernate-validator</artifactId>
+       <version>6.2.0.Final</version>
+   </dependency>
+   ```
+
+   
+
