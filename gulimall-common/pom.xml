@@ -32,6 +32,7 @@
     </properties>
 
     <dependencies>
+
         <dependency><!-- 配置中心做配置管理 -->
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
