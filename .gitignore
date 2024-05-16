@@ -27,3 +27,4 @@ buildNumber.properties
 
 **/.gitignore
 /resources/nacos/
+/gulimall-third-party/src/main/resources/application-dev.yml
