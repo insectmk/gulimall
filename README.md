@@ -98,6 +98,16 @@
    </dependency>
    ```
 
-   
+9. p66，没有`org.hibernate.validator.constraints.URL`需要在`gulimall-common`中导包，坐标如下：
+
+   ```xml
+   <!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
+   <dependency>
+       <groupId>org.hibernate.validator</groupId>
+       <artifactId>hibernate-validator</artifactId>
+       <version>6.2.0.Final</version>
+   </dependency>
+   ```
 
    
+

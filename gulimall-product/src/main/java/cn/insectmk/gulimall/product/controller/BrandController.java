@@ -1,9 +1,11 @@
 package cn.insectmk.gulimall.product.controller;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +15,8 @@ import cn.insectmk.gulimall.product.entity.BrandEntity;
 import cn.insectmk.gulimall.product.service.BrandService;
 import cn.insectmk.common.utils.PageUtils;
 import cn.insectmk.common.utils.R;
+
+import javax.validation.Valid;
 
 /**
  * 品牌
@@ -52,9 +56,20 @@ public class BrandController {
      * 保存
      */
     @RequestMapping("/save")
-    public R save(@RequestBody BrandEntity brand){
-		brandService.save(brand);
+    public R save(@Valid @RequestBody BrandEntity brand, BindingResult bindingResult){
+		if (bindingResult.hasErrors()){
+            Map<String, String> errors = new HashMap<>();
 
+            bindingResult.getFieldErrors().forEach(fieldError -> {
+                String field = fieldError.getField();
+                String message = fieldError.getDefaultMessage();
+                errors.put(field, message);
+            });
+
+            return R.error(400, "提交的数据不合法").put("data", errors);
+        } else {
+            brandService.save(brand);
+        }
         return R.ok();
     }
 
