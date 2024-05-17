@@ -1,11 +1,10 @@
 package cn.insectmk.gulimall.product.service.impl;
 
+import cn.insectmk.gulimall.product.service.CategoryBrandRelationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -21,6 +20,8 @@ import cn.insectmk.gulimall.product.service.CategoryService;
 
 @Service("categoryService")
 public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity> implements CategoryService {
+    @Autowired
+    private CategoryBrandRelationService categoryBrandRelationService;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -50,6 +51,36 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     public boolean removeMenuByIds(List<Long> ids) {
         // TODO: 删除分类前进行判断
         return this.removeByIds(ids);
+    }
+
+    @Override
+    public Long[] findCatelogPath(Long catelogId) {
+        List<Long> paths = new ArrayList<>();
+        List<Long> parentPath = findParentPath(catelogId, paths);
+        Collections.reverse(parentPath);
+
+        return parentPath.toArray(new Long[0]);
+    }
+
+    @Override
+    public void updateCascade(CategoryEntity category) {
+        this.updateById(category);
+        categoryBrandRelationService.updateCategory(category.getCatId(), category.getName());
+    }
+
+    /**
+     * 递归查询分类ID的父分类ID
+     * @param catelogId
+     * @param paths
+     * @return
+     */
+    private List<Long> findParentPath(Long catelogId, List<Long> paths) {
+        paths.add(catelogId);
+        CategoryEntity categoryEntity = baseMapper.selectById(catelogId);
+        if (categoryEntity.getParentCid() != 0) {
+            findParentPath(categoryEntity.getParentCid(), paths);
+        }
+        return paths;
     }
 
     /**
