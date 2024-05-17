@@ -5,6 +5,7 @@ import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
 import cn.insectmk.gulimall.product.vo.AttrVo;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +32,19 @@ import cn.insectmk.common.utils.R;
 public class AttrController {
     @Autowired
     private AttrService attrService;
+
+    /**
+     * 根据属性分组分页查询该组所有属性
+     * @param params
+     * @param catelogId
+     * @return
+     */
+    @RequestMapping("/base/list/{catelogId}")
+    public R baseAttrList(@RequestParam Map<String, Object> params,
+                          @PathVariable("catelogId") Long catelogId) {
+        PageUtils page = attrService.queryBaseAttrPage(params, catelogId);
+        return R.ok().put("page", page);
+    }
 
     /**
      * 列表
