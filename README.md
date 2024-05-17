@@ -50,12 +50,14 @@
 
 1. 使用VirtualBox遇到问题不知道怎么解决，改为使用VM ware。
 
-2. 导入人人开源管理后台时，提示父类模块不正确。
+2. 使用人人开源生成代码时，一页是默认10行，记得勾选所有的**（看到p76了才发现代码不全。。。。）**。
+
+3. 导入人人开源管理后台时，提示父类模块不正确。
    在子模块的`<parent>`标签下增加`<relativePath/>`即可。
 
-3. [谷粒商城 p16 node-sass报错最简单解决方法](https://gitee.com/renrenio/renren-fast-vue/issues/I900BR)
+4. [谷粒商城 p16 node-sass报错最简单解决方法](https://gitee.com/renrenio/renren-fast-vue/issues/I900BR)
 
-4. p17，common模块导入人人开源类的时候，需要自己解决类问题（**下一P老师会解决**），可以参考以下maven坐标：
+5. p17，common模块导入人人开源类的时候，需要自己解决类问题（**下一P老师会解决**），可以参考以下maven坐标：
    ```xml
    <!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
    <dependency>
@@ -79,16 +81,16 @@
    </dependency>
    ```
 
-5. Spring-Cloud-Alibaba版本问题，需要处理好。
+6. Spring-Cloud-Alibaba版本问题，需要处理好。
 
-6. EasyConnect软件会占用10000端口。
+7. EasyConnect软件会占用10000端口。
 
-7. p46，将人人开源后端注册到nacos出现问题。
+8. p46，将人人开源后端注册到nacos出现问题。
 
    1. 将人人开源`pom.xml`的springboot版本切换为`2.3.3.RELEASE`。
    2. 按照p47的说明，修改`io.renren.config.CorsConfig.java`，将跨域配置注释掉就行了。
 
-8. p62，maven坐标`aliyun-oss-spring-boot-starter`引入失败问题，参考[阿里云OSS对象存储依赖引入失败 怎么解决](https://github.com/alibaba/aliyun-spring-boot/issues/40#top)，个人实测只需要加上版本号就行了。
+9. p62，maven坐标`aliyun-oss-spring-boot-starter`引入失败问题，参考[阿里云OSS对象存储依赖引入失败 怎么解决](https://github.com/alibaba/aliyun-spring-boot/issues/40#top)，个人实测只需要加上版本号就行了。
 
    ```maven
    <dependency>
@@ -98,7 +100,7 @@
    </dependency>
    ```
 
-9. p66，没有`org.hibernate.validator.constraints.URL`需要在`gulimall-common`中导包，坐标如下：
+10. p66，没有`org.hibernate.validator.constraints.URL`需要在`gulimall-common`中导包，坐标如下：
 
    ```xml
    <!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
@@ -109,6 +111,6 @@
    </dependency>
    ```
 
-10. 如果git仓库是公开的，不要把OSS用户的密钥上传上去了。
+11. 如果git仓库是公开的，不要把OSS用户的密钥上传上去了。
 
-11. [谷粒商城接口文档](https://easydoc.net/s/78237135/ZUqEdvA4/HqQGp9TI)
+12. [谷粒商城接口文档](https://easydoc.net/s/78237135/ZUqEdvA4/HqQGp9TI)
