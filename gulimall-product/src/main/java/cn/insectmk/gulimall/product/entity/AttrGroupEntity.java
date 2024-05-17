@@ -1,5 +1,6 @@
 package cn.insectmk.gulimall.product.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -9,7 +10,7 @@ import lombok.Data;
 
 /**
  * 属性分组
- * 
+ *
  * @author InsectMk
  * @email 3067836615@qq.com
  * @date 2024-05-08 18:54:36
@@ -45,4 +46,6 @@ public class AttrGroupEntity implements Serializable {
 	 */
 	private Long catelogId;
 
+	@TableField(exist = false)
+	private Long[] catelogPath;
 }
