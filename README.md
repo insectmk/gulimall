@@ -109,5 +109,6 @@
    </dependency>
    ```
 
-   
+10. 如果git仓库是公开的，不要把OSS用户的密钥上传上去了。
 
+11. [谷粒商城接口文档](https://easydoc.net/s/78237135/ZUqEdvA4/HqQGp9TI)
