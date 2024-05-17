@@ -1,5 +1,7 @@
 package cn.insectmk.gulimall.product.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -18,9 +20,18 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
+        // 获取查询关键词
+        String key = (String) params.get("key");
+        LambdaQueryWrapper<BrandEntity> wrapper = new LambdaQueryWrapper<>();
+        // 查询条件
+        if (StringUtils.isNotBlank(key)) {
+            wrapper.eq(BrandEntity::getBrandId, key)
+                    .or().like(BrandEntity::getName, key);
+        }
+        // 分页查询
         IPage<BrandEntity> page = this.page(
                 new Query<BrandEntity>().getPage(params),
-                new QueryWrapper<BrandEntity>()
+                wrapper
         );
 
         return new PageUtils(page);
