@@ -1,5 +1,6 @@
 package cn.insectmk.gulimall.product.service;
 
+import cn.insectmk.gulimall.product.vo.AttrRespVo;
 import cn.insectmk.gulimall.product.vo.AttrVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.insectmk.common.utils.PageUtils;
@@ -27,5 +28,12 @@ public interface AttrService extends IService<AttrEntity> {
      * @return
      */
     PageUtils queryBaseAttrPage(Map<String, Object> params, Long catelogId);
+
+    /**
+     * 获取属性的详细信息
+     * @param attrId
+     * @return
+     */
+    AttrRespVo getAttrInfo(Long attrId);
 }
 

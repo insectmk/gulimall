@@ -6,6 +6,7 @@ import cn.insectmk.gulimall.product.dao.CategoryDao;
 import cn.insectmk.gulimall.product.entity.AttrAttrgroupRelationEntity;
 import cn.insectmk.gulimall.product.entity.AttrGroupEntity;
 import cn.insectmk.gulimall.product.entity.CategoryEntity;
+import cn.insectmk.gulimall.product.service.CategoryService;
 import cn.insectmk.gulimall.product.vo.AttrRespVo;
 import cn.insectmk.gulimall.product.vo.AttrVo;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -38,6 +39,8 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     private AttrGroupDao attrGroupDao;
     @Autowired
     private CategoryDao categoryDao;
+    @Autowired
+    private CategoryService categoryService;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -108,6 +111,34 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
 
         pageUtils.setList(respVos);
         return pageUtils;
+    }
+
+    @Override
+    public AttrRespVo getAttrInfo(Long attrId) {
+        AttrRespVo attrRespVo = new AttrRespVo();
+        AttrEntity attrEntity = this.getById(attrId);
+        BeanUtils.copyProperties(attrEntity, attrRespVo);
+
+        AttrAttrgroupRelationEntity relationEntity = attrAttrgroupRelationDao.selectOne(new LambdaQueryWrapper<AttrAttrgroupRelationEntity>()
+                .eq(AttrAttrgroupRelationEntity::getAttrId, attrId));
+        // 设置分组信息
+        if (relationEntity != null) {
+            attrRespVo.setAttrGroupId(relationEntity.getAttrGroupId());
+            AttrGroupEntity attrGroupEntity = attrGroupDao.selectById(relationEntity.getAttrGroupId());
+            if (attrGroupEntity != null) {
+                attrRespVo.setGroupName(attrGroupEntity.getAttrGroupName());
+            }
+        }
+        // 设置分类信息
+        Long catelogId = attrEntity.getCatelogId();
+        Long[] catelogPath = categoryService.findCatelogPath(catelogId);
+        attrRespVo.setCatelogPath(catelogPath);
+        CategoryEntity categoryEntity = categoryDao.selectById(catelogId);
+        if (categoryEntity != null) {
+            attrRespVo.setCatelogName(categoryEntity.getName());
+        }
+
+        return attrRespVo;
     }
 
 }
