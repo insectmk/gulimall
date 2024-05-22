@@ -61,4 +61,12 @@ public class R extends HashMap<String, Object> {
 		super.put(key, value);
 		return this;
 	}
+
+	/**
+	 * 快捷获取响应状态
+	 * @return
+	 */
+	public int getCode() {
+		return (Integer) this.get("code");
+	}
 }

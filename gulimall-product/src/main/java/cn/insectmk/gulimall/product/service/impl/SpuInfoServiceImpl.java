@@ -1,12 +1,13 @@
 package cn.insectmk.gulimall.product.service.impl;
 
+import cn.insectmk.common.to.SkuReductionTo;
+import cn.insectmk.common.to.SpuBoundsTo;
+import cn.insectmk.common.utils.R;
 import cn.insectmk.gulimall.product.entity.*;
+import cn.insectmk.gulimall.product.feign.CouponFeignService;
 import cn.insectmk.gulimall.product.service.*;
 import cn.insectmk.gulimall.product.vo.SpuSaveVo;
-import cn.insectmk.gulimall.product.vo.spusave.Attr;
-import cn.insectmk.gulimall.product.vo.spusave.BaseAttrs;
-import cn.insectmk.gulimall.product.vo.spusave.Images;
-import cn.insectmk.gulimall.product.vo.spusave.Skus;
+import cn.insectmk.gulimall.product.vo.spusave.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,8 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
     private SkuImagesService skuImagesService;
     @Autowired
     private SkuSaleAttrValueService skuSaleAttrValueService;
+    @Autowired
+    private CouponFeignService couponFeignService;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -83,6 +86,15 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         }).collect(Collectors.toList());
         attrValueService.saveProductAttr(attrValues);
         // 5. 保存spu的积分信息
+        Bounds bounds = spuSaveVo.getBounds();
+        SpuBoundsTo spuBoundsTo = new SpuBoundsTo();
+        BeanUtils.copyProperties(bounds, spuBoundsTo);
+        spuBoundsTo.setSpuId(spuInfoEntity.getId());
+        R r = couponFeignService.saveSpuBounds(spuBoundsTo);
+        if (r.getCode() != 0) {
+            log.error("远程保存spu优惠信息失败");
+        }
+
         // 6. 保存当前spu对应的所有sku信息
         // 6.1) sku的基本信息:sku_info
         List<Skus> skus = spuSaveVo.getSkus();
@@ -124,6 +136,13 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
                 }).collect(Collectors.toList());
                 skuSaleAttrValueService.saveBatch(skuSaleAttrValueEntities);
                 // 6.4) sku的优惠、满减等信息（跨库）
+                SkuReductionTo skuReductionTo = new SkuReductionTo();
+                BeanUtils.copyProperties(item, skuReductionTo);
+                skuReductionTo.setSkuId(skuId);
+                R r1 = couponFeignService.saveSkuReduction(skuReductionTo);
+                if (r1.getCode() != 0) {
+                    log.error("远程保存sku优惠信息失败");
+                }
             });
         }
     }
