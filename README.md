@@ -114,3 +114,12 @@
 11. 如果git仓库是公开的，不要把OSS用户的密钥上传上去了。
 
 12. [谷粒商城接口文档](https://easydoc.net/s/78237135/ZUqEdvA4/HqQGp9TI)
+
+13. p84报错pubsub，使用`cnpm install --save pubsub-js`安装依赖，然后在`src/main.js`中添加如下内容：
+
+    ```javascript
+    import PubSub from 'pubsub-js'
+    Vue.prototype.PubSub = PubSub
+    ```
+
+    
