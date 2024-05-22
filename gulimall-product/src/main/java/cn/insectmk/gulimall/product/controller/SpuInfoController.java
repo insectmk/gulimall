@@ -4,6 +4,7 @@ import cn.insectmk.common.utils.PageUtils;
 import cn.insectmk.common.utils.R;
 import cn.insectmk.gulimall.product.entity.SpuInfoEntity;
 import cn.insectmk.gulimall.product.service.SpuInfoService;
+import cn.insectmk.gulimall.product.vo.SpuSaveVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.Arrays;
@@ -49,8 +50,8 @@ public class SpuInfoController {
      * 保存
      */
     @RequestMapping("/save")
-    public R save(@RequestBody SpuInfoEntity spuInfo){
-		spuInfoService.save(spuInfo);
+    public R save(@RequestBody SpuSaveVo spuSaveVo){
+		spuInfoService.saveSpuInfo(spuSaveVo);
 
         return R.ok();
     }

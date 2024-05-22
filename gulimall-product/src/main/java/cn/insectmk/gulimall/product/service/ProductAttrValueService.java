@@ -3,7 +3,7 @@ package cn.insectmk.gulimall.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.insectmk.common.utils.PageUtils;
 import cn.insectmk.gulimall.product.entity.ProductAttrValueEntity;
-
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,5 +16,11 @@ import java.util.Map;
 public interface ProductAttrValueService extends IService<ProductAttrValueEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    /**
+     * 批量保存商品的属性
+     * @param attrValues
+     */
+    void saveProductAttr(List<ProductAttrValueEntity> attrValues);
 }
 
