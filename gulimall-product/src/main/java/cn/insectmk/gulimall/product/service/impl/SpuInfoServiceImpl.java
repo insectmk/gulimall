@@ -8,10 +8,12 @@ import cn.insectmk.gulimall.product.feign.CouponFeignService;
 import cn.insectmk.gulimall.product.service.*;
 import cn.insectmk.gulimall.product.vo.SpuSaveVo;
 import cn.insectmk.gulimall.product.vo.spusave.*;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -123,7 +125,10 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
                     skuImagesEntity.setImgUrl(img.getImgUrl());
                     skuImagesEntity.setDefaultImg(img.getDefaultImg());
                     return skuImagesEntity;
-                }).collect(Collectors.toList());
+                })
+                        // 过滤空图片
+                        .filter(entity -> StringUtils.isNotBlank(entity.getImgUrl()))
+                        .collect(Collectors.toList());
                 // 6.2) sku的图片信息:sku_images
                 skuImagesService.saveBatch(skuImages);
                 // 6.3) sku的销售属性信息:sku_sale_attr_value
@@ -139,9 +144,11 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
                 SkuReductionTo skuReductionTo = new SkuReductionTo();
                 BeanUtils.copyProperties(item, skuReductionTo);
                 skuReductionTo.setSkuId(skuId);
-                R r1 = couponFeignService.saveSkuReduction(skuReductionTo);
-                if (r1.getCode() != 0) {
-                    log.error("远程保存sku优惠信息失败");
+                if (skuReductionTo.getFullCount() > 0 || skuReductionTo.getFullPrice().compareTo(new BigDecimal(0)) > 0) {
+                    R r1 = couponFeignService.saveSkuReduction(skuReductionTo);
+                    if (r1.getCode() != 0) {
+                        log.error("远程保存sku优惠信息失败");
+                    }
                 }
             });
         }

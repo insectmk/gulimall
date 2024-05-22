@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @Date 2024/5/22 17:00
  * @Version 1.0
  */
-@FeignClient("gulimall")
+@FeignClient("gulimall-coupon")
 public interface CouponFeignService {
     /**
      * 保存积分信息
