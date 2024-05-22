@@ -3,7 +3,6 @@ package cn.insectmk.gulimall.product.controller;
 import cn.insectmk.common.utils.PageUtils;
 import cn.insectmk.common.utils.R;
 import cn.insectmk.gulimall.product.service.AttrService;
-import cn.insectmk.gulimall.product.vo.AttrGroupRelationVo;
 import cn.insectmk.gulimall.product.vo.AttrRespVo;
 import cn.insectmk.gulimall.product.vo.AttrVo;
 import org.springframework.beans.factory.annotation.Autowired;

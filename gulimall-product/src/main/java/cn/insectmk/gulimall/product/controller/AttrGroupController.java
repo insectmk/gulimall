@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.insectmk.gulimall.product.entity.AttrEntity;
+import cn.insectmk.gulimall.product.service.AttrAttrgroupRelationService;
 import cn.insectmk.gulimall.product.service.AttrService;
 import cn.insectmk.gulimall.product.service.CategoryService;
 import cn.insectmk.gulimall.product.vo.AttrGroupRelationVo;
@@ -33,6 +34,14 @@ public class AttrGroupController {
     private CategoryService categoryService;
     @Autowired
     private AttrService attrService;
+    @Autowired
+    private AttrAttrgroupRelationService relationService;
+
+    @PostMapping("/attr/relation")
+    public R addRelation(@RequestBody List<AttrGroupRelationVo> vos) {
+        relationService.saveBatch(vos);
+        return R.ok();
+    }
 
     /**
      * 获取某个分组下所有没有关联的属性
