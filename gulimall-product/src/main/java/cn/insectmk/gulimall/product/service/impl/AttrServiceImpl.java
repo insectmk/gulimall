@@ -8,6 +8,7 @@ import cn.insectmk.gulimall.product.entity.AttrAttrgroupRelationEntity;
 import cn.insectmk.gulimall.product.entity.AttrGroupEntity;
 import cn.insectmk.gulimall.product.entity.CategoryEntity;
 import cn.insectmk.gulimall.product.service.CategoryService;
+import cn.insectmk.gulimall.product.vo.AttrGroupRelationVo;
 import cn.insectmk.gulimall.product.vo.AttrRespVo;
 import cn.insectmk.gulimall.product.vo.AttrVo;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -17,6 +18,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -231,6 +233,16 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
                         .eq(AttrAttrgroupRelationEntity::getAttrGroupId, attrgroupId))
                 .stream().map(AttrAttrgroupRelationEntity::getAttrId).collect(Collectors.toList());
         return this.listByIds(attrIds);
+    }
+
+    @Override
+    public void deleteRelation(AttrGroupRelationVo[] vos) {
+        List<AttrAttrgroupRelationEntity> entities = Arrays.asList(vos).stream().map((item) -> {
+            AttrAttrgroupRelationEntity attrAttrgroupRelationEntity = new AttrAttrgroupRelationEntity();
+            BeanUtils.copyProperties(item, attrAttrgroupRelationEntity);
+            return attrAttrgroupRelationEntity;
+        }).collect(Collectors.toList());
+        attrAttrgroupRelationDao.deleteBatchRelation(entities);
     }
 
 }

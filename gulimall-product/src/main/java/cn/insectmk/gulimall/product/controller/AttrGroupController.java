@@ -7,6 +7,7 @@ import java.util.Map;
 import cn.insectmk.gulimall.product.entity.AttrEntity;
 import cn.insectmk.gulimall.product.service.AttrService;
 import cn.insectmk.gulimall.product.service.CategoryService;
+import cn.insectmk.gulimall.product.vo.AttrGroupRelationVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import cn.insectmk.gulimall.product.entity.AttrGroupEntity;
@@ -32,6 +33,17 @@ public class AttrGroupController {
     private CategoryService categoryService;
     @Autowired
     private AttrService attrService;
+
+    /**
+     * 删除属性分组与属性的关系
+     * @param vos
+     * @return
+     */
+    @PostMapping("/attr/relation/delete")
+    public R deleteRelation(@RequestBody AttrGroupRelationVo[] vos) {
+        attrService.deleteRelation(vos);
+        return R.ok();
+    }
 
     /**
      * 获取某个分组下所有的属性

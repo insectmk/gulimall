@@ -1,5 +1,6 @@
 package cn.insectmk.gulimall.product.service;
 
+import cn.insectmk.gulimall.product.vo.AttrGroupRelationVo;
 import cn.insectmk.gulimall.product.vo.AttrRespVo;
 import cn.insectmk.gulimall.product.vo.AttrVo;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -58,5 +59,11 @@ public interface AttrService extends IService<AttrEntity> {
      * @return
      */
     List<AttrEntity> getRelationAttr(Long attrgroupId);
+
+    /**
+     * 删除属性分组与属性的关系
+     * @param vos
+     */
+    void deleteRelation(AttrGroupRelationVo[] vos);
 }
 

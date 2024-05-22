@@ -1,23 +1,15 @@
 package cn.insectmk.gulimall.product.controller;
 
-import java.util.Arrays;
-import java.util.Map;
-
-//import org.apache.shiro.authz.annotation.RequiresPermissions;
-import cn.insectmk.gulimall.product.vo.AttrRespVo;
-import cn.insectmk.gulimall.product.vo.AttrVo;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import cn.insectmk.gulimall.product.entity.AttrEntity;
-import cn.insectmk.gulimall.product.service.AttrService;
 import cn.insectmk.common.utils.PageUtils;
 import cn.insectmk.common.utils.R;
+import cn.insectmk.gulimall.product.service.AttrService;
+import cn.insectmk.gulimall.product.vo.AttrGroupRelationVo;
+import cn.insectmk.gulimall.product.vo.AttrRespVo;
+import cn.insectmk.gulimall.product.vo.AttrVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import java.util.Arrays;
+import java.util.Map;
 
 
 
