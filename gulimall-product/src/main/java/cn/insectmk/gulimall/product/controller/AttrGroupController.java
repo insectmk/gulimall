@@ -1,15 +1,14 @@
 package cn.insectmk.gulimall.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import cn.insectmk.gulimall.product.entity.AttrEntity;
+import cn.insectmk.gulimall.product.service.AttrService;
 import cn.insectmk.gulimall.product.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import cn.insectmk.gulimall.product.entity.AttrGroupEntity;
 import cn.insectmk.gulimall.product.service.AttrGroupService;
 import cn.insectmk.common.utils.PageUtils;
@@ -31,6 +30,19 @@ public class AttrGroupController {
     private AttrGroupService attrGroupService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private AttrService attrService;
+
+    /**
+     * 获取某个分组下所有的属性
+     * @param attrgroupId
+     * @return
+     */
+    @GetMapping("/{attrgroupId}/attr/relation")
+    public R attrRelation(@PathVariable("attrgroupId") Long attrgroupId) {
+        List<AttrEntity> attrs = attrService.getRelationAttr(attrgroupId);
+        return R.ok().put("data", attrs);
+    }
 
     /**
      * 列表

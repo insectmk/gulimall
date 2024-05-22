@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import cn.insectmk.common.utils.PageUtils;
 import cn.insectmk.gulimall.product.entity.AttrEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -50,5 +51,12 @@ public interface AttrService extends IService<AttrEntity> {
      * @return
      */
     PageUtils queryBaseAttrPage(Map<String, Object> params, Long catelogId, String attrType);
+
+    /**
+     * 根据分组ID获取该分组下的所有属性
+     * @param attrgroupId
+     * @return
+     */
+    List<AttrEntity> getRelationAttr(Long attrgroupId);
 }
 

@@ -17,6 +17,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -221,6 +222,15 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
 
         pageUtils.setList(respVos);
         return pageUtils;
+    }
+
+    @Override
+    public List<AttrEntity> getRelationAttr(Long attrgroupId) {
+        // 获取分组下所有属性的ID
+        List<Long> attrIds = attrAttrgroupRelationDao.selectList(new LambdaQueryWrapper<AttrAttrgroupRelationEntity>()
+                        .eq(AttrAttrgroupRelationEntity::getAttrGroupId, attrgroupId))
+                .stream().map(AttrAttrgroupRelationEntity::getAttrId).collect(Collectors.toList());
+        return this.listByIds(attrIds);
     }
 
 }
