@@ -122,4 +122,10 @@
     Vue.prototype.PubSub = PubSub
     ```
 
+14. p100，规格404，修改前端项目的`/src/router/index.js`文件，在`mainRoutes`下的`children`里加上以下内容：
+
+    ```javascript
+    ,{ path: '/product-attrupdate', component: _import('modules/product/attrupdate'), name: 'attr-update', meta: { title: '规格维护', isTab: true } }
+    ```
+
     
