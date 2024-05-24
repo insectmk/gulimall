@@ -32,6 +32,19 @@ public class PurchaseController {
     private PurchaseService purchaseService;
 
     /**
+     * 分页查询未被接收的采购单
+     * @param params
+     * @return
+     */
+    @RequestMapping("/unreceive/list")
+    //@RequiresPermissions("ware:purchase:list")
+    public R unreceiveList(@RequestParam Map<String, Object> params){
+        PageUtils page = purchaseService.queryPageUnreceivePurchase(params);
+
+        return R.ok().put("page", page);
+    }
+
+    /**
      * 列表
      */
     @RequestMapping("/list")

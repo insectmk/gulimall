@@ -1,5 +1,6 @@
 package cn.insectmk.gulimall.ware.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -21,6 +22,21 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseDao, PurchaseEntity
         IPage<PurchaseEntity> page = this.page(
                 new Query<PurchaseEntity>().getPage(params),
                 new QueryWrapper<PurchaseEntity>()
+        );
+
+        return new PageUtils(page);
+    }
+
+    @Override
+    public PageUtils queryPageUnreceivePurchase(Map<String, Object> params) {
+        LambdaQueryWrapper<PurchaseEntity> queryWrapper = new LambdaQueryWrapper<>();
+
+        queryWrapper.eq(PurchaseEntity::getStatus, 0)
+                .or().eq(PurchaseEntity::getStatus, 1);
+
+        IPage<PurchaseEntity> page = this.page(
+                new Query<PurchaseEntity>().getPage(params),
+                queryWrapper
         );
 
         return new PageUtils(page);
