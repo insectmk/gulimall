@@ -1,7 +1,9 @@
 package cn.insectmk.gulimall.product.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -31,6 +33,12 @@ public class ProductAttrValueServiceImpl extends ServiceImpl<ProductAttrValueDao
     @Override
     public void saveProductAttr(List<ProductAttrValueEntity> attrValues) {
         this.saveBatch(attrValues);
+    }
+
+    @Override
+    public List<ProductAttrValueEntity> baseAttrListForSpu(Long spuId) {
+        return this.baseMapper.selectList(new LambdaQueryWrapper<ProductAttrValueEntity>()
+                .eq(ProductAttrValueEntity::getSpuId, spuId));
     }
 
 }
