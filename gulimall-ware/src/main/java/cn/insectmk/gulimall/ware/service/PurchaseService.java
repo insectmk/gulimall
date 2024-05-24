@@ -1,5 +1,6 @@
 package cn.insectmk.gulimall.ware.service;
 
+import cn.insectmk.gulimall.ware.vo.MergeVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.insectmk.common.utils.PageUtils;
 import cn.insectmk.gulimall.ware.entity.PurchaseEntity;
@@ -23,5 +24,11 @@ public interface PurchaseService extends IService<PurchaseEntity> {
      * @return
      */
     PageUtils queryPageUnreceivePurchase(Map<String, Object> params);
+
+    /**
+     * 合并采购项到采购单
+     * @param mergeVo
+     */
+    void mergePurchase(MergeVo mergeVo);
 }
 
