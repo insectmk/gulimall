@@ -1,12 +1,15 @@
 package cn.insectmk.gulimall.ware.service.impl;
 
+import cn.insectmk.common.utils.R;
+import cn.insectmk.gulimall.ware.feign.ProductFeignService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import cn.insectmk.common.utils.PageUtils;
@@ -19,6 +22,8 @@ import cn.insectmk.gulimall.ware.service.WareSkuService;
 
 @Service("wareSkuService")
 public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> implements WareSkuService {
+    @Autowired
+    private ProductFeignService productFeignService;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -53,6 +58,18 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
             wareSkuEntity.setSkuId(skuId);
             wareSkuEntity.setWareId(wareId);
             wareSkuEntity.setStock(skuNum);
+            wareSkuEntity.setStockLocked(0);
+            // TODO 还有什么办法可以解决异常后不回滚
+            try {
+                R info = productFeignService.info(skuId);
+                if (info.getCode() == 0) {
+                    Map<String, Object> data = (Map<String, Object>) info.get("skuInfo");
+                    wareSkuEntity.setSkuName(data.get("skuName").toString());
+                }
+            } catch (Exception ignored) {
+
+            }
+
             this.baseMapper.insert(wareSkuEntity);
         } else {
             this.baseMapper.addStock(skuId, wareId, skuNum);
