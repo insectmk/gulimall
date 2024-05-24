@@ -68,6 +68,9 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseDao, PurchaseEntity
             this.save(purchaseEntity); // 保存新建的采购单
             purchaseId = purchaseEntity.getId();
         }
+
+        // TODO 确定状态是0/1
+
         List<Long> items = mergeVo.getItems();
         final Long purchaseIdFinal = purchaseId;
         List<PurchaseDetailEntity> details = items.stream().map(item -> {
@@ -84,6 +87,33 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseDao, PurchaseEntity
         purchase.setId(purchaseId);
         purchase.setUpdateTime(new Date());
         this.updateById(purchase);
+    }
+
+    @Override
+    public void received(List<Long> ids) {
+        // 1. 确认当前采购单是新建或已分配
+        List<PurchaseEntity> purchases = ids.stream()
+                .map(this::getById)
+                .filter(item -> item.getStatus() == WareConstant.PurchaseStatusEnum.CREATED.getCode() ||
+                item.getStatus() == WareConstant.PurchaseStatusEnum.ASSIGNED.getCode())
+                .peek(item -> {
+                    item.setStatus(WareConstant.PurchaseStatusEnum.RECEIVE.getCode());
+                    item.setUpdateTime(new Date());
+                })
+                .collect(Collectors.toList());
+        // 2. 改变采购单状态
+        this.updateBatchById(purchases);
+        // 3. 改变采购项状态
+        purchases.forEach(item -> {
+            List<PurchaseDetailEntity> entities = purchaseDetailService.listDetailByPurchaseId(item.getId());
+            List<PurchaseDetailEntity> list = entities.stream().map(entity -> {
+                PurchaseDetailEntity detailEntity = new PurchaseDetailEntity();
+                detailEntity.setStatus(WareConstant.PurchaseDetailStatusEnum.BUYING.getCode());
+                return detailEntity;
+                }).collect(Collectors.toList());
+
+            purchaseDetailService.updateBatchById(list);
+        });
     }
 
 }
