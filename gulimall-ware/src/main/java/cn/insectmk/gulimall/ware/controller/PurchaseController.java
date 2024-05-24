@@ -7,6 +7,7 @@ import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
 import cn.insectmk.gulimall.ware.vo.MergeVo;
+import cn.insectmk.gulimall.ware.vo.PurchaseDoneVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +30,19 @@ import cn.insectmk.common.utils.R;
 public class PurchaseController {
     @Autowired
     private PurchaseService purchaseService;
+
+    /**
+     * 完成采购单
+     * @param purchaseDoneVo
+     * @return
+     */
+    @PostMapping("/done")
+    //@RequiresPermissions("ware:purchase:list")
+    public R done(@RequestBody PurchaseDoneVo purchaseDoneVo){
+        purchaseService.done(purchaseDoneVo);
+
+        return R.ok();
+    }
 
     /**
      * 领取采购单

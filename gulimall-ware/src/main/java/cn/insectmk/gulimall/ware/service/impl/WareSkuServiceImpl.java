@@ -3,6 +3,8 @@ package cn.insectmk.gulimall.ware.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -38,6 +40,24 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
         );
 
         return new PageUtils(page);
+    }
+
+    @Override
+    public void addStock(Long skuId, Long wareId, Integer skuNum) {
+        // 判断如果还没有这个库存记录则为新增操作
+        List<WareSkuEntity> wareSkuEntities = this.baseMapper.selectList(new LambdaQueryWrapper<WareSkuEntity>()
+                .eq(WareSkuEntity::getSkuId, skuId)
+                .eq(WareSkuEntity::getWareId, wareId));
+        if (wareSkuEntities.isEmpty()) {
+            WareSkuEntity wareSkuEntity = new WareSkuEntity();
+            wareSkuEntity.setSkuId(skuId);
+            wareSkuEntity.setWareId(wareId);
+            wareSkuEntity.setStock(skuNum);
+            this.baseMapper.insert(wareSkuEntity);
+        } else {
+            this.baseMapper.addStock(skuId, wareId, skuNum);
+        }
+
     }
 
 }
