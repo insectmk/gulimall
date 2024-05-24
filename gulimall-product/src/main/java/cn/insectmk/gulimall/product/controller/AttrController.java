@@ -31,6 +31,21 @@ public class AttrController {
     private ProductAttrValueService productAttrValueService;
 
     /**
+     * 修改商品规格
+     * @param spuId
+     * @param entities
+     * @return
+     */
+    @PostMapping("/update/{spuId}")
+    //@RequiresPermissions("product:attr:update")
+    public R updateSpuAttr(@PathVariable("spuId") Long spuId,
+                           @RequestBody List<ProductAttrValueEntity> entities){
+        productAttrValueService.updateSpuAttr(spuId, entities);
+
+        return R.ok();
+    }
+
+    /**
      * 获取SPU规格
      * @param spuId
      * @return

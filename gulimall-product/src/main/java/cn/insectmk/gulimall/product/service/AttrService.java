@@ -1,5 +1,6 @@
 package cn.insectmk.gulimall.product.service;
 
+import cn.insectmk.gulimall.product.entity.ProductAttrValueEntity;
 import cn.insectmk.gulimall.product.vo.AttrGroupRelationVo;
 import cn.insectmk.gulimall.product.vo.AttrRespVo;
 import cn.insectmk.gulimall.product.vo.AttrVo;
