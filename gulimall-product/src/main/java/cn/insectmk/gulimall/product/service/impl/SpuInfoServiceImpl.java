@@ -8,6 +8,7 @@ import cn.insectmk.gulimall.product.feign.CouponFeignService;
 import cn.insectmk.gulimall.product.service.*;
 import cn.insectmk.gulimall.product.vo.SpuSaveVo;
 import cn.insectmk.gulimall.product.vo.spusave.*;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -157,6 +158,41 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
     @Override
     public void saveBaseSpuInfo(SpuInfoEntity spuInfoEntity) {
         this.baseMapper.insert(spuInfoEntity);
+    }
+
+    @Override
+    public PageUtils queryPageByCondition(Map<String, Object> params) {
+        LambdaQueryWrapper<SpuInfoEntity> queryWrapper = new LambdaQueryWrapper<>();
+
+        String key = (String) params.get("key");
+        if (StringUtils.isNotBlank(key)) {
+            queryWrapper.and(w -> {
+                w.eq(SpuInfoEntity::getId, key).
+                        or().like(SpuInfoEntity::getSpuName, key);
+            });
+        }
+
+        String status = (String) params.get("status");
+        if (StringUtils.isNotBlank(status)) {
+            queryWrapper.eq(SpuInfoEntity::getPublishStatus, status);
+        }
+
+        String brandId = (String) params.get("brandId");
+        if (StringUtils.isNotBlank(brandId)) {
+            queryWrapper.eq(SpuInfoEntity::getBrandId, brandId);
+        }
+
+        String catelogId = (String) params.get("catelogId");
+        if (StringUtils.isNotBlank(catelogId)) {
+            queryWrapper.eq(SpuInfoEntity::getCatalogId, catelogId);
+        }
+
+        IPage<SpuInfoEntity> page = this.page(
+                new Query<SpuInfoEntity>().getPage(params),
+                queryWrapper
+        );
+
+        return new PageUtils(page);
     }
 
 }
