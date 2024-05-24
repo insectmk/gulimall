@@ -13,6 +13,7 @@ spring:
   application:
     name: gulimall-ware
 
+
 # MyBatis-Plus配置
 mybatis-plus:
   # mapper.xml扫描
@@ -24,3 +25,8 @@ mybatis-plus:
 
 server:
   port: 11000
+
+# 日志
+logging:
+  level:
+    cn.insectmk: debug
