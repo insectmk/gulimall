@@ -128,4 +128,31 @@
     ,{ path: '/product-attrupdate', component: _import('modules/product/attrupdate'), name: 'attr-update', meta: { title: '规格维护', isTab: true } }
     ```
 
+15. p109，[测试数据地址](https://github.com/elastic/elasticsearch/blob/mute-65048-master/docs/src/test/resources/accounts.json)
+
+16. p122，[分词器下载地址](https://github.com/infinilabs/analysis-ik/releases/tag/v7.4.2)
+
+17. p123，不用更换yum源，换了反而更卡
+
+18. p126，elastisearch依赖不正确，导入以下maven坐标：
+
+    ```xml
+    <dependency>
+        <groupId>org.elasticsearch</groupId>
+        <artifactId>elasticsearch</artifactId>
+        <version>7.4.2</version>
+    </dependency>
+    <dependency>
+        <groupId>org.elasticsearch.client</groupId>
+        <artifactId>elasticsearch-rest-client</artifactId>
+        <version>7.4.2</version>
+    </dependency>
+    
+    <dependency>
+        <groupId>org.elasticsearch.client</groupId>
+        <artifactId>elasticsearch-rest-high-level-client</artifactId>
+        <version>7.4.2</version>
+    </dependency>
+    ```
+
     
