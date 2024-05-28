@@ -83,4 +83,16 @@ public class R extends HashMap<String, Object> {
 		String s = JSON.toJSONString(data);
 		return JSON.parseObject(s, typeReference);
 	}
+
+	/**
+	 * 设置data
+	 * @param data
+	 * @return
+	 */
+	public R setData(Object data) {
+		put("data", data);
+		return this;
+	}
+
+
 }
