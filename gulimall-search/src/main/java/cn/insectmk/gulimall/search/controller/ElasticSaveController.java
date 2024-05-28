@@ -32,7 +32,7 @@ public class ElasticSaveController {
      * @param skuEsModels
      * @return
      */
-    @PostMapping("/product ")
+    @PostMapping("/product")
     public R productStatusUp(@RequestBody List<SkuEsModel> skuEsModels) {
         boolean flag;
         try {

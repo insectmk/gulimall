@@ -11,6 +11,7 @@ import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.xcontent.XContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,13 +43,13 @@ public class ProductSaveServiceImpl implements ProductSaveService {
             // 构造保存请求
             IndexRequest indexRequest = new IndexRequest(EsConstant.PRODUCT_INDEX);
             indexRequest.id(skuEsModel.getSkuId().toString());
-            indexRequest.source(JSON.toJSONString(skuEsModel));
+            indexRequest.source(JSON.toJSONString(skuEsModel), XContentType.JSON);
             bulkRequest.add(indexRequest);
         }
         BulkResponse bulk = restHighLevelClient.bulk(bulkRequest, GulimallElasticSearchConfig.COMMON_OPTIONS);
         // TODO 如果批量错误
-        boolean flag = bulk.hasFailures();
-        if (flag) {
+        boolean flag = !bulk.hasFailures();
+        if (!flag) {
             List<String> itemIds = Arrays.stream(bulk.getItems()).map(BulkItemResponse::getId).collect(Collectors.toList());
             log.error("商品上架错误：{}", itemIds);
         }
