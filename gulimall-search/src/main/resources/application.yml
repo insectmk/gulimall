@@ -8,6 +8,6 @@ spring:
     name: gulimall-search
 
 server:
-  port: 88
+  port: 12000
 
 

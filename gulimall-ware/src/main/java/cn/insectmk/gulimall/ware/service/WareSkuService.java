@@ -1,9 +1,11 @@
 package cn.insectmk.gulimall.ware.service;
 
+import cn.insectmk.gulimall.ware.vo.SkuHasStockVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.insectmk.common.utils.PageUtils;
 import cn.insectmk.gulimall.ware.entity.WareSkuEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,5 +26,12 @@ public interface WareSkuService extends IService<WareSkuEntity> {
      * @param skuNum
      */
     void addStock(Long skuId, Long wareId, Integer skuNum);
+
+    /**
+     * 查询sku是否有库存
+     * @param skuIds
+     * @return
+     */
+    List<SkuHasStockVo> getSkuHasStock(List<Long> skuIds);
 }
 
