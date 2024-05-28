@@ -114,3 +114,45 @@
 11. 如果git仓库是公开的，不要把OSS用户的密钥上传上去了。
 
 12. [谷粒商城接口文档](https://easydoc.net/s/78237135/ZUqEdvA4/HqQGp9TI)
+
+13. p84报错pubsub，使用`cnpm install --save pubsub-js`安装依赖，然后在`src/main.js`中添加如下内容：
+
+    ```javascript
+    import PubSub from 'pubsub-js'
+    Vue.prototype.PubSub = PubSub
+    ```
+
+14. p100，规格404，修改前端项目的`/src/router/index.js`文件，在`mainRoutes`下的`children`里加上以下内容：
+
+    ```javascript
+    ,{ path: '/product-attrupdate', component: _import('modules/product/attrupdate'), name: 'attr-update', meta: { title: '规格维护', isTab: true } }
+    ```
+
+15. p109，[测试数据地址](https://github.com/elastic/elasticsearch/blob/mute-65048-master/docs/src/test/resources/accounts.json)
+
+16. p122，[分词器下载地址](https://github.com/infinilabs/analysis-ik/releases/tag/v7.4.2)
+
+17. p123，不用更换yum源，换了反而更卡
+
+18. p126，elastisearch依赖不正确，导入以下maven坐标：
+
+    ```xml
+    <dependency>
+        <groupId>org.elasticsearch</groupId>
+        <artifactId>elasticsearch</artifactId>
+        <version>7.4.2</version>
+    </dependency>
+    <dependency>
+        <groupId>org.elasticsearch.client</groupId>
+        <artifactId>elasticsearch-rest-client</artifactId>
+        <version>7.4.2</version>
+    </dependency>
+    
+    <dependency>
+        <groupId>org.elasticsearch.client</groupId>
+        <artifactId>elasticsearch-rest-high-level-client</artifactId>
+        <version>7.4.2</version>
+    </dependency>
+    ```
+
+    

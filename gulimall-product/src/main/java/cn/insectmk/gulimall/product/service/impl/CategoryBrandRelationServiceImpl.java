@@ -8,14 +8,20 @@ import cn.insectmk.gulimall.product.dao.CategoryDao;
 import cn.insectmk.gulimall.product.entity.BrandEntity;
 import cn.insectmk.gulimall.product.entity.CategoryBrandRelationEntity;
 import cn.insectmk.gulimall.product.entity.CategoryEntity;
+import cn.insectmk.gulimall.product.service.BrandService;
 import cn.insectmk.gulimall.product.service.CategoryBrandRelationService;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Service("categoryBrandRelationService")
@@ -24,6 +30,10 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
     private BrandDao brandDao;
     @Autowired
     private CategoryDao categoryDao;
+    @Autowired
+    private CategoryBrandRelationDao categoryBrandRelationDao;
+    @Autowired
+    private BrandService brandService;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -63,6 +73,17 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
     @Override
     public void updateCategory(Long catId, String name) {
         this.baseMapper.updateCategory(catId, name);
+    }
+
+    @Override
+    public List<BrandEntity> getBrandsByCatId(Long catId) {
+        return categoryBrandRelationDao.selectList(new LambdaQueryWrapper<CategoryBrandRelationEntity>()
+                        .eq(CategoryBrandRelationEntity::getCatelogId, catId))
+                .stream()
+                .map(item -> {
+                    Long brandId = item.getBrandId();
+                    return brandService.getById(brandId);
+                }).collect(Collectors.toList());
     }
 
 }

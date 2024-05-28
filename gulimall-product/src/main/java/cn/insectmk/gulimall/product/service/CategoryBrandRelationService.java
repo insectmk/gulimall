@@ -1,9 +1,11 @@
 package cn.insectmk.gulimall.product.service;
 
+import cn.insectmk.gulimall.product.entity.BrandEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.insectmk.common.utils.PageUtils;
 import cn.insectmk.gulimall.product.entity.CategoryBrandRelationEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,5 +38,12 @@ public interface CategoryBrandRelationService extends IService<CategoryBrandRela
      * @param name
      */
     void updateCategory(Long catId, String name);
+
+    /**
+     * 获取分类关联的品牌
+     * @param catId
+     * @return
+     */
+    List<BrandEntity> getBrandsByCatId(Long catId);
 }
 

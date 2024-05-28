@@ -8,6 +8,8 @@
 
 package cn.insectmk.common.utils;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import org.apache.http.HttpStatus;
 
 import java.util.HashMap;
@@ -61,4 +63,36 @@ public class R extends HashMap<String, Object> {
 		super.put(key, value);
 		return this;
 	}
+
+	/**
+	 * 快捷获取响应状态
+	 * @return
+	 */
+	public int getCode() {
+		return (Integer) this.get("code");
+	}
+
+	/**
+	 * 快捷获取数据
+	 * @param typeReference
+	 * @return
+	 * @param <T>
+	 */
+	public <T> T getData(TypeReference<T> typeReference){
+		Object data = get("data");
+		String s = JSON.toJSONString(data);
+		return JSON.parseObject(s, typeReference);
+	}
+
+	/**
+	 * 设置data
+	 * @param data
+	 * @return
+	 */
+	public R setData(Object data) {
+		put("data", data);
+		return this;
+	}
+
+
 }

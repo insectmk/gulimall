@@ -1,11 +1,14 @@
 package cn.insectmk.gulimall.product.service;
 
+import cn.insectmk.gulimall.product.entity.ProductAttrValueEntity;
+import cn.insectmk.gulimall.product.vo.AttrGroupRelationVo;
 import cn.insectmk.gulimall.product.vo.AttrRespVo;
 import cn.insectmk.gulimall.product.vo.AttrVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.insectmk.common.utils.PageUtils;
 import cn.insectmk.gulimall.product.entity.AttrEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -41,5 +44,42 @@ public interface AttrService extends IService<AttrEntity> {
      * @param attr
      */
     void updateAttr(AttrVo attr);
+
+    /**
+     * 获取属性的详细信息
+     * @param params
+     * @param catelogId
+     * @param attrType
+     * @return
+     */
+    PageUtils queryBaseAttrPage(Map<String, Object> params, Long catelogId, String attrType);
+
+    /**
+     * 根据分组ID获取该分组下的所有属性
+     * @param attrgroupId
+     * @return
+     */
+    List<AttrEntity> getRelationAttr(Long attrgroupId);
+
+    /**
+     * 删除属性分组与属性的关系
+     * @param vos
+     */
+    void deleteRelation(AttrGroupRelationVo[] vos);
+
+    /**
+     * 获取当前分组没有关联的所有属性
+     * @param params
+     * @param attrgroupId
+     * @return
+     */
+    PageUtils getNoRelationAttr(Map<String, Object> params, Long attrgroupId);
+
+    /**
+     * 在指定的所有属性集合里面，挑选出可检索属性
+     * @param attrIds
+     * @return
+     */
+    List<Long> selectSearchAttrIds(List<Long> attrIds);
 }
 
