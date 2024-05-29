@@ -46,4 +46,14 @@ public class IndexController {
         model.addAttribute("categorys", categoryEntities);
         return "index";
     }
+
+    /**
+     * 测试
+     * @return
+     */
+    @GetMapping("/hello")
+    @ResponseBody
+    public String hello() {
+        return "hello world";
+    }
 }

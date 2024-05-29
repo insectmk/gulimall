@@ -16,7 +16,7 @@ spring:
     # JSON数据时间格式化
     date-format: yyyy-MM-dd HH:mm:ss
   thymeleaf:
-    # 关闭缓存
+    # 缓存
     cache: false
 
 # MyBatis-Plus配置
