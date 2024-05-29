@@ -1,5 +1,6 @@
 package cn.insectmk.gulimall.product.service;
 
+import cn.insectmk.gulimall.product.vo.Catelog2Vo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.insectmk.common.utils.PageUtils;
 import cn.insectmk.gulimall.product.entity.CategoryEntity;
@@ -50,5 +51,11 @@ public interface CategoryService extends IService<CategoryEntity> {
      * @return
      */
     List<CategoryEntity> getLevel1Categories();
+
+    /**
+     * 查出所有的分类
+     * @return
+     */
+    Map<String, List<Catelog2Vo>> getCatalogJson();
 }
 
