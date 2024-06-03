@@ -18,6 +18,11 @@ spring:
   thymeleaf:
     # 缓存
     cache: false
+  # redis配置
+  redis:
+    host: 192.168.114.141
+    #password:
+    port: 6379
 
 # MyBatis-Plus配置
 mybatis-plus:
