@@ -5,6 +5,8 @@ import cn.insectmk.gulimall.product.vo.Catelog2Vo;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
@@ -32,6 +34,8 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     private CategoryBrandRelationService categoryBrandRelationService;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private RedissonClient redissonClient;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -90,11 +94,29 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         String catalogJson = stringRedisTemplate.opsForValue().get("catalogJson");
         if (StringUtils.isEmpty(catalogJson)) {
             // 查询数据库
-            getCatalogJsonFromDbWithRedisLock();
+            getCatalogJsonFromDbWithRedissonLock();
         }
         // 转为指定对象
         return JSON.parseObject(catalogJson, new TypeReference<Map<String, List<Catelog2Vo>>>() {
         });
+    }
+
+    /**
+     * 使用Redisson
+     * @return
+     */
+    private Map<String, List<Catelog2Vo>> getCatalogJsonFromDbWithRedissonLock() {
+        // 占分布式锁
+        RLock lock = redissonClient.getLock("catalogJson-lock");
+        lock.lock();
+        // 加锁成功，执行业务
+        Map<String, List<Catelog2Vo>> dataFromDb;
+        try {
+            dataFromDb = getDataFromDb();
+        } finally {
+            lock.unlock();
+        }
+        return dataFromDb;
     }
 
     /**
