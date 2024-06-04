@@ -30,7 +30,7 @@ spring:
       # 一个小时过期
       time-to-live: 3600000
       # Key前缀，如果没有指定前缀，则使用缓存名字作为Key前缀
-      key-prefix: CACHE_
+      #key-prefix: CACHE_
       # 使用前缀
       use-key-prefix: true
       # 是否缓存空值
