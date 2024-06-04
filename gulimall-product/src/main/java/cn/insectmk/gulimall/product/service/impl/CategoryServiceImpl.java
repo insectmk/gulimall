@@ -86,7 +86,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     // 当前方法的结果需要缓存，如果缓存中有方法不需要调用。
     // 如果缓存中没有，会调用方法，最后将方法的结果放入缓存当中。
     // 每一个需要缓存的数据，都需要指定要放到哪个名字的缓存。（缓存分区，可以按照业务类型分区）
-    @Cacheable({"category"})
+    @Cacheable(value = {"category"}, key = "'level1Categories'")
     @Override
     public List<CategoryEntity> getLevel1Categories() {
         return baseMapper.selectList(new LambdaQueryWrapper<CategoryEntity>()

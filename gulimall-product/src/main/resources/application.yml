@@ -26,6 +26,15 @@ spring:
   # 缓存配置
   cache:
     type: redis
+    redis:
+      # 一个小时过期
+      time-to-live: 3600000
+      # Key前缀，如果没有指定前缀，则使用缓存名字作为Key前缀
+      key-prefix: CACHE_
+      # 使用前缀
+      use-key-prefix: true
+      # 是否缓存空值
+      cache-null-values: true
 # MyBatis-Plus配置
 mybatis-plus:
   # mapper.xml扫描
@@ -38,7 +47,6 @@ mybatis-plus:
       #logic-delete-field: flag # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
       logic-delete-value: 1 # 逻辑已删除值(默认为 1)
       logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
-
 # 日志
 logging:
   level:
