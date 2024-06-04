@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Service;
@@ -82,6 +83,10 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         categoryBrandRelationService.updateCategory(category.getCatId(), category.getName());
     }
 
+    // 当前方法的结果需要缓存，如果缓存中有方法不需要调用。
+    // 如果缓存中没有，会调用方法，最后将方法的结果放入缓存当中。
+    // 每一个需要缓存的数据，都需要指定要放到哪个名字的缓存。（缓存分区，可以按照业务类型分区）
+    @Cacheable({"category"})
     @Override
     public List<CategoryEntity> getLevel1Categories() {
         return baseMapper.selectList(new LambdaQueryWrapper<CategoryEntity>()

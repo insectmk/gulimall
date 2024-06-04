@@ -23,7 +23,9 @@ spring:
     host: 192.168.114.141
     #password:
     port: 6379
-
+  # 缓存配置
+  cache:
+    type: redis
 # MyBatis-Plus配置
 mybatis-plus:
   # mapper.xml扫描
